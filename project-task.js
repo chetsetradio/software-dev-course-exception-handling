@@ -32,13 +32,18 @@ const readlineSync = require('readline-sync');
 // Initial Code with Bugs (modified to use readline-sync)
 let animals = [];
 let fees = [];
-function addAnimal(name, fee) {
-    if (!name || fee < 0) {
-        throw new Error("Invalid animal name or adoption fee!");
-    }
+ function addAnimal(name, fee) {
+   try { if (!name || fee < 0) {
+        throw new Error("Invalid animal name or adoption fee!");}
+    
     animals.push(name);
     fees.push(fee);
-}
+   } catch(err){
+    console.log("That didn't quite work, please try again.");
+    animal = readlineSync.question("Enter the animal's name:");
+    fee = readlineSync.question("Please enter the adoption fee:")
+   }
+ }
 function getAdoptionFee(animalName) {
     let index = animals.indexOf(animalName);
     if (index === -1) {
@@ -67,6 +72,12 @@ while (true) {
     }
 }
 
+
+// Program stops after getting an error -- it doesn't continue on. I tried to add the first try and catch block and it's coming up before the program runs. The program can already tell me the errors, but it's crashing the program. I don't know how it happened, but the name parameter got depreciated? And I don't know what that means? 
+
+// The second way I tried to use the try/catch block, it's giving me a SyntaxError: Unexpected end of input. I also keep getting a Range error when I try to catch. "Maximum call stack size exceeded."
+
+// Sort of got it to work, but then now it doesn't save the values correctly. 
 
 
 /*
